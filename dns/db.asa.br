@@ -1,0 +1,13 @@
+$TTL 604800
+@   IN  SOA ns.asa.br. root.asa.br. (
+        2         ; Serial
+        604800    ; Refresh
+        86400     ; Retry
+        2419200   ; Expire
+        604800 )  ; Negative Cache TTL
+
+@       IN  NS    ns.asa.br.
+ns      IN  A     10.0.2.10
+www1    IN  A     10.0.2.11
+www2    IN  A     10.0.2.12
+proxy   IN  A     10.0.2.13

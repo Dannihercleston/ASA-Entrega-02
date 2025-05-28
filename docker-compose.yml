@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+
+  dns:
+    image: internetsystemsconsortium/bind9:9.18
+    container_name: bind9
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    volumes:
+      - ./dns/named.conf:/etc/bind/named.conf
+      - ./dns/db.asa.br:/etc/bind/db.asa.br
+    networks:
+      asa_net:
+        ipv4_address: 10.0.2.10
+
+  web1:
+    image: nginx:alpine
+    container_name: web1
+    volumes:
+      - ./web1/index.html:/usr/share/nginx/html/index.html
+    networks:
+      asa_net:
+        ipv4_address: 10.0.2.11
+
+  web2:
+    image: nginx:alpine
+    container_name: web2
+    volumes:
+      - ./web2/index.html:/usr/share/nginx/html/index.html
+    networks:
+      asa_net:
+        ipv4_address: 10.0.2.12
+
+  proxy:
+    image: nginx:alpine
+    container_name: proxy
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+      - ./proxy/certs:/etc/nginx/certs
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web1
+      - web2
+    networks:
+      asa_net:
+        ipv4_address: 10.0.2.13
+
+networks:
+  asa_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.2.0/24
