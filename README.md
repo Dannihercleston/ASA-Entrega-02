@@ -10,7 +10,7 @@ Este projeto entrega um **Microserviço HTTP com Docker Compose** para os seguin
 
 ## 📁 Estrutura do Projeto
 
-
+````
 ASA-Entrega-02/
 ├── docker-compose.yml # Orquestra os serviços
 ├── proxy/
@@ -27,7 +27,7 @@ ASA-Entrega-02/
 │ └── db.asa.br # Zona DNS primária
 └── README.md # Documentação do projeto
 
-
+````
 
 
 ---
